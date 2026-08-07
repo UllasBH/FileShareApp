@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FileShareApp — Open Workspace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+
+<div class="bg-decor">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+</div>
+
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 19C3.79 19 2 17.21 2 15C2 12.93 3.55 11.23 5.55 11.02C6.07 8.19 8.56 6 11.5 6C14.03 6 16.2 7.62 17.02 9.9C19.32 10.14 21.11 12.07 21.11 14.42C21.11 16.94 19.06 19 16.53 19H6Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h1>FileShareApp</h1>
+    </div>
+    <p class="tagline">Your personal cloud workspace. No email needed.</p>
+
+    <form id="authForm" autocomplete="off">
+      <div class="form-group">
+        <label for="workspaceName">Workspace Name</label>
+        <input type="text" id="workspaceName" name="workspaceName" placeholder="e.g. ullas" minlength="3" maxlength="40" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="password-field">
+          <input type="password" id="password" name="password" placeholder="Enter your password" minlength="4" required>
+          <button type="button" id="togglePassword" class="toggle-btn" aria-label="Show password">
+            <svg id="eyeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 12S5 4 12 4S23 12 23 12S19 20 12 20S1 12 1 12Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div id="errorBox" class="error-box hidden"></div>
+      <div id="infoBox" class="info-box hidden"></div>
+
+      <button type="submit" id="submitBtn" class="btn-primary">
+        <span id="btnText">Open Workspace</span>
+        <span id="btnSpinner" class="spinner hidden"></span>
+      </button>
+    </form>
+
+    <p class="hint">
+      New workspace name? We'll create it automatically.<br>
+      Existing workspace? Just enter your password.
+    </p>
+  </div>
+</div>
+
+<script src="/js/login.js"></script>
+</body>
+</html>

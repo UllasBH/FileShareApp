@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — FileShareApp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 19C3.79 19 2 17.21 2 15C2 12.93 3.55 11.23 5.55 11.02C6.07 8.19 8.56 6 11.5 6C14.03 6 16.2 7.62 17.02 9.9C19.32 10.14 21.11 12.07 21.11 14.42C21.11 16.94 19.06 19 16.53 19H6Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span>FileShareApp</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="/dashboard" class="nav-item active">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 10.5L12 3L21 10.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1V10.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        Dashboard
+      </a>
+      <a href="/settings" class="nav-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M19.4 15a1.7 1.7 0 00.34 1.87l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.7 1.7 0 00-1.87-.34 1.7 1.7 0 00-1 1.55V21a2 2 0 11-4 0v-.09A1.7 1.7 0 009 19.4a1.7 1.7 0 00-1.87.34l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.7 1.7 0 004.6 15a1.7 1.7 0 00-1.55-1H3a2 2 0 110-4h.09A1.7 1.7 0 004.6 9a1.7 1.7 0 00-.34-1.87l-.06-.06a2 2 0 112.83-2.83l.06.06A1.7 1.7 0 009 4.6a1.7 1.7 0 001-1.55V3a2 2 0 114 0v.09a1.7 1.7 0 001 1.55 1.7 1.7 0 001.87-.34l.06-.06a2 2 0 112.83 2.83l-.06.06A1.7 1.7 0 0019.4 9a1.7 1.7 0 001.55 1H21a2 2 0 110 4h-.09a1.7 1.7 0 00-1.55 1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        Settings
+      </a>
+    </nav>
+
+    <div class="sidebar-storage">
+      <div class="storage-label">
+        <span>Storage Used</span>
+        <span id="sidebarStorageText">0 MB</span>
+      </div>
+      <div class="storage-bar">
+        <div class="storage-bar-fill" id="sidebarStorageFill"></div>
+      </div>
+    </div>
+
+    <button id="logoutBtn" class="logout-btn">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Logout
+    </button>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main-content">
+
+    <header class="topbar">
+      <div>
+        <h1 id="welcomeText">Welcome!</h1>
+        <p class="subtext">Manage and share your files securely.</p>
+      </div>
+      <button id="darkModeToggle" class="icon-btn" title="Toggle dark mode">
+        <svg id="modeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      </button>
+    </header>
+
+    <!-- Stats row -->
+    <section class="stats-row">
+      <div class="stat-card">
+        <div class="stat-icon storage-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <p class="stat-label">Storage Usage</p>
+          <p class="stat-value" id="storageText">0 MB</p>
+          <div class="storage-bar main-storage-bar">
+            <div class="storage-bar-fill" id="mainStorageFill"></div>
+          </div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon files-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <p class="stat-label">Total Files</p>
+          <p class="stat-value" id="fileCountText">0</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon workspace-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 9h18" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <div>
+          <p class="stat-label">Workspace</p>
+          <p class="stat-value" id="workspaceNameText">-</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Upload box -->
+    <section class="upload-section">
+      <div id="dropZone" class="drop-zone">
+        <input type="file" id="fileInput" multiple hidden>
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none"><path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <p class="drop-title">Drag & drop files here</p>
+        <p class="drop-subtitle">or click to browse — any file type supported</p>
+        <button type="button" class="btn-primary upload-btn" id="browseBtn">Upload File</button>
+      </div>
+
+      <div id="uploadQueue" class="upload-queue"></div>
+    </section>
+
+    <!-- File list -->
+    <section class="files-section">
+      <div class="files-header">
+        <h2>Your Files</h2>
+        <div class="search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.7"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <input type="text" id="searchInput" placeholder="Search files...">
+        </div>
+      </div>
+
+      <div id="filesGrid" class="files-grid"></div>
+      <div id="emptyState" class="empty-state hidden">
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        <p>No files yet</p>
+        <span>Upload your first file to get started</span>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast hidden"></div>
+
+<!-- Preview modal -->
+<div id="previewModal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <button id="closePreview" class="modal-close">&times;</button>
+    <div id="previewContent" class="preview-content"></div>
+  </div>
+</div>
+
+<script src="/js/dashboard.js"></script>
+</body>
+</html>

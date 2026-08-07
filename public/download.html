@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Download — FileShareApp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/download.css">
+</head>
+<body>
+
+<div class="bg-decor">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+</div>
+
+<div class="download-wrapper">
+  <div id="loadingState" class="download-card">
+    <div class="spinner-lg"></div>
+    <p class="loading-text">Loading file details...</p>
+  </div>
+
+  <div id="errorState" class="download-card hidden">
+    <div class="error-icon">⚠️</div>
+    <h2>File Not Found</h2>
+    <p class="error-text">This share link is invalid or the file has been removed.</p>
+    <a href="/" class="btn-secondary">Go to FileShareApp</a>
+  </div>
+
+  <div id="fileState" class="download-card hidden">
+    <div class="brand-row">
+      <div class="brand-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 19C3.79 19 2 17.21 2 15C2 12.93 3.55 11.23 5.55 11.02C6.07 8.19 8.56 6 11.5 6C14.03 6 16.2 7.62 17.02 9.9C19.32 10.14 21.11 12.07 21.11 14.42C21.11 16.94 19.06 19 16.53 19H6Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span>FileShareApp</span>
+    </div>
+
+    <div class="file-icon-big" id="fileIconBig">📁</div>
+    <h2 id="fileName" class="file-name-lg">-</h2>
+
+    <div class="file-details">
+      <div class="detail-row">
+        <span>File Size</span>
+        <span id="fileSize">-</span>
+      </div>
+      <div class="detail-row">
+        <span>Upload Date</span>
+        <span id="uploadDate">-</span>
+      </div>
+      <div class="detail-row">
+        <span>Downloads</span>
+        <span id="downloadCount">-</span>
+      </div>
+    </div>
+
+    <a id="downloadBtn" class="btn-primary" href="#">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Download File
+    </a>
+
+    <p class="powered-by">Shared securely via FileShareApp</p>
+  </div>
+</div>
+
+<script src="/js/download.js"></script>
+</body>
+</html>
