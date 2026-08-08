@@ -23,19 +23,11 @@ A simple personal cloud storage web app — like Google Drive, but minimal. No e
    npm install
 ```
 
-2. **Configure environment variables**
-
-   A `.env` file is already included with sane local defaults:
-   PORT=3000
-MONGO_URI=mongodb://127.0.0.1:27017/fileshareapp
-SESSION_SECRET=fileshareapp_super_secret_key_change_this_in_production
-NODE_ENV=development
-
 - If you're using **MongoDB Atlas** or a remote database, replace `MONGO_URI` with your connection string.
    - If you're running MongoDB locally, make sure `mongod` is running on port `27017` (or update `MONGO_URI` to match).
    - Change `SESSION_SECRET` to a long random string before deploying anywhere public.
 
-3. **Start the server**
+1. **Start the server**
 
 ```bash
    node server.js
@@ -44,7 +36,7 @@ NODE_ENV=development
    You should see: MongoDB Connected: <host>
 FileShareApp server running on http://localhost:3000
 
-4. Open **http://localhost:3000** in your browser locally, or the live deployed link:
+1. Open the live deployed link:
    **https://fileshareapp-production.up.railway.app**
 
 ## How Login Works
