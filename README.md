@@ -51,8 +51,8 @@ NODE_ENV=development
    FileShareApp server running on http://localhost:3000
    ```
 
-4. Open **fileshareapp-production.up.railway.app** in your browser.
-
+4. 4. Open **https://fileshareapp-production.up.railway.app** to try it live.
+      
 ## How Login Works
 
 There's no email/signup form. On the landing page you just enter:
