@@ -51,8 +51,7 @@ A simple personal cloud storage web app — like Google Drive, but minimal. No e
    FileShareApp server running on http://localhost:3000
    ```
 
-4. Open **http://localhost:3000** in your browser.
-
+4. 4. Open **https://fileshareapp-production.up.railway.app** to try it live.
 ## How Login Works
 
 There's no email/signup form. On the landing page you just enter:
