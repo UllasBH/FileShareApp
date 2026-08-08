@@ -1,4 +1,4 @@
-# FileShareApp
+<img width="1141" height="696" alt="image" src="https://github.com/user-attachments/assets/0fa2cfab-9920-41ab-b808-a94993416c4d" /># FileShareApp
 
 A simple personal cloud storage web app — like Google Drive, but minimal. No email registration: just a **workspace name** and a **password**.
 
@@ -28,10 +28,10 @@ A simple personal cloud storage web app — like Google Drive, but minimal. No e
    A `.env` file is already included with sane local defaults:
 
    ```
-   PORT=3000
-   MONGO_URI=mongodb://127.0.0.1:27017/fileshareapp
-   SESSION_SECRET=fileshareapp_super_secret_key_change_this_in_production
-   NODE_ENV=development
+  PORT=3000
+MONGO_URI=mongodb+srv://ullasbhgowdaullas_db_user:FileShare2026db@cluster0.oy9hfhb.mongodb.net/fileshareapp?retryWrites=true&w=majority
+SESSION_SECRET=fileshareapp_super_secret_key_change_this_in_production
+NODE_ENV=development
    ```
 
    - If you're using **MongoDB Atlas** or a remote database, replace `MONGO_URI` with your connection string.
@@ -51,7 +51,7 @@ A simple personal cloud storage web app — like Google Drive, but minimal. No e
    FileShareApp server running on http://localhost:3000
    ```
 
-4. Open **http://localhost:3000** in your browser.
+4. Open **fileshareapp-production.up.railway.app** in your browser.
 
 ## How Login Works
 
