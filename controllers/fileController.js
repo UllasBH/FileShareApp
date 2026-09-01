@@ -1,29 +1,13 @@
-const crypto = require('crypto');
+const fs = require('fs');
 const path = require('path');
 const { nanoid } = require('nanoid');
-const {
-  PutObjectCommand,
-  GetObjectCommand,
-  DeleteObjectCommand
-} = require('@aws-sdk/client-s3');
-const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
 
 const File = require('../models/File');
 const Workspace = require('../models/Workspace');
-const { r2Client, BUCKET_NAME } = require('../config/r2');
 
-// How long a generated download link stays valid for
-const SIGNED_URL_EXPIRY_SECONDS = 60 * 10; // 10 minutes
-
-// Generates a unique object key (R2's equivalent of a filename) for a new upload
-function generateObjectKey(originalName) {
-  const uniqueSuffix = crypto.randomBytes(16).toString('hex');
-  const ext = path.extname(originalName);
-  return `${Date.now()}-${uniqueSuffix}${ext}`;
-}
+const UPLOADS_DIR = path.join(__dirname, '..', 'uploads');
 
 // POST /api/files/upload
-// Handles single or multiple file uploads (multer keeps them in memory as buffers)
 const uploadFiles = async (req, res) => {
   try {
     const files = req.files;
@@ -37,21 +21,12 @@ const uploadFiles = async (req, res) => {
     let totalSizeAdded = 0;
 
     for (const file of files) {
-      const objectKey = generateObjectKey(file.originalname);
-
-      await r2Client.send(new PutObjectCommand({
-        Bucket: BUCKET_NAME,
-        Key: objectKey,
-        Body: file.buffer,
-        ContentType: file.mimetype || 'application/octet-stream'
-      }));
-
       const shareId = nanoid(10);
 
       const newFile = await File.create({
         workspaceId,
         originalName: file.originalname,
-        savedName: objectKey,
+        savedName: file.filename,
         size: file.size,
         mimeType: file.mimetype || 'application/octet-stream',
         shareId
@@ -77,7 +52,6 @@ const uploadFiles = async (req, res) => {
 };
 
 // GET /api/files
-// Lists all files belonging to the logged-in workspace, supports ?search=
 const listFiles = async (req, res) => {
   try {
     const workspaceId = req.session.workspaceId;
@@ -97,15 +71,14 @@ const listFiles = async (req, res) => {
   }
 };
 
-// Generates a temporary signed download URL for an R2 object,
-// with a friendly filename attached via the response header.
-async function getSignedDownloadUrl(objectKey, downloadName) {
-  const command = new GetObjectCommand({
-    Bucket: BUCKET_NAME,
-    Key: objectKey,
-    ResponseContentDisposition: `attachment; filename="${encodeURIComponent(downloadName)}"`
+function sendFileDownload(res, savedName, downloadName) {
+  const filePath = path.join(UPLOADS_DIR, savedName);
+  return res.download(filePath, downloadName, (err) => {
+    if (err && !res.headersSent) {
+      console.error('Download stream error:', err);
+      res.status(404).json({ success: false, message: 'File not found on server.' });
+    }
   });
-  return getSignedUrl(r2Client, command, { expiresIn: SIGNED_URL_EXPIRY_SECONDS });
 }
 
 // GET /api/files/download/:id  (owner download, requires auth)
@@ -120,8 +93,7 @@ const downloadOwnFile = async (req, res) => {
     file.downloads += 1;
     await file.save();
 
-    const url = await getSignedDownloadUrl(file.savedName, file.originalName);
-    return res.redirect(url);
+    return sendFileDownload(res, file.savedName, file.originalName);
   } catch (error) {
     console.error('Download error:', error);
     return res.status(500).json({ success: false, message: 'Download failed.' });
@@ -137,10 +109,10 @@ const deleteFile = async (req, res) => {
       return res.status(404).json({ success: false, message: 'File not found.' });
     }
 
-    await r2Client.send(new DeleteObjectCommand({
-      Bucket: BUCKET_NAME,
-      Key: file.savedName
-    }));
+    const filePath = path.join(UPLOADS_DIR, file.savedName);
+    fs.unlink(filePath, (err) => {
+      if (err) console.error('File delete warning (may already be gone):', err.message);
+    });
 
     await Workspace.findByIdAndUpdate(file.workspaceId, {
       $inc: { storageUsed: -file.size }
@@ -193,8 +165,7 @@ const downloadSharedFile = async (req, res) => {
     file.downloads += 1;
     await file.save();
 
-    const url = await getSignedDownloadUrl(file.savedName, file.originalName);
-    return res.redirect(url);
+    return sendFileDownload(res, file.savedName, file.originalName);
   } catch (error) {
     console.error('Shared download error:', error);
     return res.status(500).json({ success: false, message: 'Download failed.' });

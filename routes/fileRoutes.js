@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const path = require('path');
+const crypto = require('crypto');
 
 const {
   uploadFiles,
@@ -12,10 +14,16 @@ const {
 } = require('../controllers/fileController');
 const { requireAuth } = require('../middleware/authMiddleware');
 
-// Files are held in memory just long enough to stream straight to Cloudflare R2 -
-// nothing touches local disk, so storage isn't limited by the server's disk size.
+// Files are saved directly to local disk on the server
 const upload = multer({
-  storage: multer.memoryStorage(),
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => cb(null, path.join(__dirname, '..', 'uploads')),
+    filename: (req, file, cb) => {
+      const uniqueSuffix = crypto.randomBytes(16).toString('hex');
+      const ext = path.extname(file.originalname);
+      cb(null, `${Date.now()}-${uniqueSuffix}${ext}`);
+    }
+  }),
   limits: {
     fileSize: 500 * 1024 * 1024 // 500 MB per file
   }
