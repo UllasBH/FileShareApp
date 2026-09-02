@@ -146,10 +146,18 @@ function renderFiles() {
         </div>
       </div>
       <div class="file-actions">
-        <button class="download-btn" title="Download">⬇️</button>
-        <button class="preview-btn" title="Preview">👁️</button>
-        <button class="share-btn" title="Copy Share Link">🔗</button>
-        <button class="delete-btn" title="Delete">🗑️</button>
+        <button class="download-btn" title="Download" aria-label="Download ${escapeHtml(file.originalName)}">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="preview-btn" title="Preview" aria-label="Preview ${escapeHtml(file.originalName)}">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.7"/></svg>
+        </button>
+        <button class="share-btn" title="Copy Share Link" aria-label="Copy share link for ${escapeHtml(file.originalName)}">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M10 14a5 5 0 007.07 0l2-2a5 5 0 00-7.07-7.07l-1 1M14 10a5 5 0 00-7.07 0l-2 2a5 5 0 007.07 7.07l1-1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="delete-btn" title="Delete" aria-label="Delete ${escapeHtml(file.originalName)}">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V4h6v3M6 7l1 13a2 2 0 002 2h6a2 2 0 002-2l1-13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
       </div>
     `;
 
