@@ -1,8 +1,9 @@
+
 .settings-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 20px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .settings-card {
@@ -17,6 +18,25 @@
   font-weight: 700;
   margin-bottom: 18px;
   color: var(--text-light);
+}
+
+
+.btn-secondary {
+  padding: 11px 22px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-light);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.btn-secondary:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+  background: rgba(220, 38, 38, 0.08);
 }
 
 .info-row {

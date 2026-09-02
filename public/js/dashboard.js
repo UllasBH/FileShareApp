@@ -78,7 +78,7 @@ async function loadWorkspaceInfo() {
     }
 
     const ws = data.workspace;
-    welcomeText.textContent = `Welcome, ${ws.workspaceName}`;
+    welcomeText.textContent = 'Welcome back';
     workspaceNameText.textContent = ws.workspaceName;
     fileCountText.textContent = ws.fileCount;
 
